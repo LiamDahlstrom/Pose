@@ -38,7 +38,7 @@
 error_reporting(0);
 ?>
 <?php
-$msg = "";
+echo $msg = "";
 
 // If upload button is clicked ...
 if (isset($_POST['upload'])) {
@@ -67,7 +67,7 @@ $result = mysqli_query($db, "SELECT * FROM image");
 
 <form method="post"> <input type="text" name="comment" placeholder="Comment" action="" enctype="multipart/form-data"><br><br>
 
-<select name="pets" id="pet-select" name="musclegroup" action="" enctype="multipart/form-data">
+<select id="musclegroup" name="musclegroup" action="" enctype="multipart/form-data">
     <option value="">--Choose your musclegroup--</option>
     <option value="Back">Back</option>
     <option value="Stomach">Stomach</option>
@@ -77,23 +77,22 @@ $result = mysqli_query($db, "SELECT * FROM image");
     <option value="Shoulders">Shoulders</option>
 </select><br><br>
 
-<form method="post"> <input type="text" name="date" placeholder="Date (YYYYMMDD)" action="" enctype="multipart/form-data"><br>
+<!--<form method="post"> <input type="text" name="date" placeholder="Date (YYYYMMDD)" action="" enctype="multipart/form-data"><br>-->
 
 <form method="post"> <input type="text" name="feeling" placeholder="Feeling" action="" enctype="multipart/form-data"><br>
 
 <?php
 if (isset($_POST['upload'])) {
 
-	$comment = $_FILES["comment"];
-	$musclegroup = $_FILES["musclegroup"];
-  $date = $_FILES["date"];
-  $feeling = $_FILES["feeling"];
+	$comment = $_POST["comment"]; //Att lära sig utantill, [id, name]
+	$musclegroup = $_POST["musclegroup"]; 
+  $feeling = $_POST["feeling"];
 
 		
 	//$db = mysqli_connect("localhost", "root", "", "pose_db");
 
 		// Get all the submitted data from the form
-		$sql = "INSERT INTO content (`contentid`, `contentdate`, `contentcomment`, `contentmuscle`, `contentfeeling`) VALUES ('$id','$date','$comment','$musclegroup','$feeling')";
+		$sql = "INSERT INTO content (`contentcomment`, `contentmuscle`, `contentfeeling`) VALUES ('$comment','$musclegroup','$feeling')";
 
 		// Execute query
 		mysqli_query($conn, $sql);
